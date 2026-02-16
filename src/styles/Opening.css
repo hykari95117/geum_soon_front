@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 오프닝 화면 전체 배경 (배경 이미지) */
+.app-background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/image/background/opening.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 게임 타이틀 "east sea" */
+.game-title {
+  color: #000000;
+  font-family: 'Press Start 2P', cursive;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  image-rendering: pixelated;
+  font-size: 3.2rem;
+  text-align: left;
+  padding-top: 8%;
+  padding-left: 4%;
+  margin: 0;
+  /* text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5); */
+  animation: fadeIn 3s ease-in;
+  cursor: default;
+}
+
+/* 페이드인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* 메뉴 버튼 그룹 (START, SAVED, EXIT) */
+.select-box-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+  padding-left: 4%;
+  padding-top: 5%;
+}
+
+/* 메뉴 버튼 감싸는 하얀색 픽셀 테두리 */
+.select-box-wrapper {
+  border: none;
+  padding: 5px;
+  image-rendering: pixelated;
+  box-shadow:
+    /* 상단 */
+    0 -4px 0 0 #ffffff,
+    0 -8px 0 0 #ffffff,
+    /* 하단 */
+    0 4px 0 0 #ffffff,
+    0 8px 0 0 #ffffff,
+    /* 좌측 */
+    -4px 0 0 0 #ffffff,
+    -8px 0 0 0 #ffffff,
+    /* 우측 */
+    4px 0 0 0 #ffffff,
+    8px 0 0 0 #ffffff,
+    /* 모서리 (계단 형태) */
+    -4px -4px 0 0 #ffffff,
+    4px -4px 0 0 #ffffff,
+    -4px 4px 0 0 #ffffff,
+    4px 4px 0 0 #ffffff;
+}
+
+/* 개별 메뉴 버튼 (도트 스타일) */
+.select-box {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 16px 40px;
+  /* border: none; */
+  outline: none;
+  border-radius: 10;
+  box-shadow: 4px 4px 0px #000000;
+  image-rendering: pixelated;
+  width: 25rem;
+  height: 3.5rem;
+  animation: fadeIn 3s ease-in;
+  cursor: default;
+}
+
+/* 메뉴 버튼 hover / 키보드 선택 (배경 검정, 글씨 흰색) */
+.select-box:hover,
+.select-box.selected {
+  background-color: #000000;
+  border: none;
+  color: #ffffff;
+}
+
+/* 메뉴 버튼 클릭 / 키보드 Enter (눌림 효과) */
+.select-box:active,
+.select-box.pressed {
+  box-shadow: 2px 2px 0px #000000;
+  transform: translate(2px, 2px);
+}

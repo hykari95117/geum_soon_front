@@ -1,0 +1,14 @@
+/* 전역 기본 설정 */
+:root {
+  background-color: #d4f1f9;
+
+  -webkit-user-select: none; /* chrome, safari, opera */
+  -moz-user-select: none;    /* firefox */
+  -ms-user-select: none;     /* IE 10+, edge */
+  user-select: none;         /* Standard */
+}
+
+/* body 초기화 */
+body {
+  margin: 0;
+}

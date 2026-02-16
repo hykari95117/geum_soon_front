@@ -1,15 +1,16 @@
-import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import IntroPage from './components/IntroPage'
+import Opening from './components/Opening'
+import GamePage from './components/GamePage'
+
 
 function App() {
   return (
-    <div className="app-background">
-      <h1 className="game-title">Geum-soon</h1>
-      <div className="select-box-group">
-        <button className="select-box">START</button>
-        <button className="select-box">SAVED</button>
-        <button className="select-box">EXIT</button>
-      </div>
-    </div>
+    <Routes>
+      <Route path={'/'} element={<IntroPage/>}></Route>
+      <Route path={'/opening'} element={<Opening/>}></Route>
+      <Route path={'/game'} element={<GamePage/>}></Route>
+    </Routes>
   )
 }
 

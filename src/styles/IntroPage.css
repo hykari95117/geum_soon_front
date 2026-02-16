@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 인트로 화면 전체 배경 (검은 화면, 중앙 정렬) */
+.click-to-start {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* "CLICK TO START" 텍스트 (깜빡임 애니메이션) */
+.click-text {
+  color: #ffffff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  animation: blink 1.2s step-start infinite;
+}
+
+/* 텍스트 깜빡임 애니메이션 */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

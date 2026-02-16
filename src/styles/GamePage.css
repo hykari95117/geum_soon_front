@@ -1,0 +1,68 @@
+.scene-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.scene-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    bottom: 72px;
+}
+
+.scene-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.scene-name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 12px 16px;
+    margin-left: 24px;
+    margin-top: -20px;
+
+    font-size: 26px;
+    font-weight: 500;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.04);
+}
+
+.scene-chat {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 40px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    gap: 12px;
+    color: black;
+    background: rgba(252, 253, 252, 0.9);
+    border-radius: 15px;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 32px;
+}
+
+.scene-background {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    filter: blur(5px);
+    transform: scale(1.03);
+}
+
+.scene-character-image {
+    margin-left: 40px;
+}
