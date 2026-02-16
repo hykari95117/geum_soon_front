@@ -1,7 +1,7 @@
 import PlaySong from './PlaySong'
 import '../styles/GamePage.css'
 
-const backgroundUrl = '/image/background/office.png'
+const backgroundUrl = '/image/background/scene1/home.png'
 
 const GamePage = () => {
     return (
