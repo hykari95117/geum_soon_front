@@ -12,7 +12,7 @@
 
 /* 게임 타이틀 "east sea" */
 .game-title {
-  color: #000000;
+  color: #de0a90;
   font-family: 'Press Start 2P', cursive;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: none;
@@ -95,7 +95,7 @@
 /* 메뉴 버튼 hover / 키보드 선택 (배경 검정, 글씨 흰색) */
 .select-box:hover,
 .select-box.selected {
-  background-color: #000000;
+  background-color: #80d715;
   border: none;
   color: #ffffff;
 }
