@@ -1,68 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 색상 및 레이아웃 변수 정의 */
+:root {
+    /* 한국 전통 따뜻한 색감 */
+    --primary-warm-brown: #8B6F47;
+    --primary-beige: #D4C5A9;
+    --primary-light-beige: #EAE0D3;
+    --primary-dark-brown: #5C4A33;
+    --accent-gold: #C9A961;
+    --text-dark: #3D2817;
+    --text-light: #F5F1EB;
+
+    /* 투명도 */
+    --dialog-bg-opacity: 0.75;
+    --dialog-dark-brown: rgba(92, 74, 51, 0.75);
+    --blur-amount: 0px;
+}
+
+/* 메인 컨테이너 - 게임 화면 전체 */
 .scene-container {
     display: flex;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background: #2a2a2a;
 }
 
-.scene-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    bottom: 72px;
-}
-
-.scene-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.scene-name {
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 12px 16px;
-    margin-left: 24px;
-    margin-top: -20px;
-
-    font-size: 26px;
-    font-weight: 500;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.04);
-}
-
-.scene-chat {
-    display: flex;
-    flex-direction: column;
-    padding: 40px 40px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    text-align: center;
-    gap: 12px;
-    color: black;
-    background: rgba(252, 253, 252, 0.9);
-    border-radius: 15px;
-    font-weight: 300;
-    font-size: 22px;
-    line-height: 32px;
-}
-
+/* 배경 이미지 - 한국 전통 방 */
 .scene-background {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     width: 100%;
     height: 100%;
-    filter: blur(5px);
-    transform: scale(1.03);
+    /* 픽셀아트 배경 선명도 유지: blur 제거 */
+    transform: scale(1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* 픽셀아트 스타일 강화 */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
-.scene-character-image {
-    margin-left: 40px;
+/* 캐릭터와 대화상자를 감싸는 래퍼 */
+.scene-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 900px;
+    bottom: clamp(20px, 6vh, 60px);
+    z-index: 10;
 }
+
+/* 내용 컨테이너 */
+.scene-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+/* 캐릭터 이름 태그 - 픽셀풍 */
+.scene-name {
+    position: absolute;
+    right: clamp(12px, 3vw, 24px);
+    top: clamp(-24px, -3.2vh, -32px);
+    padding: clamp(8px, 1.2vh, 10px) clamp(16px, 2.2vw, 20px);
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(12px, 1.5vw, 14px);
+    font-weight: 600;
+    color: var(--text-light);
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+    background-color: var(--primary-dark-brown);
+    border: 3px solid var(--accent-gold);
+    border-radius: 0;
+    image-rendering: pixelated;
+    z-index: 15;
+    animation: fadeInSlideDown 0.6s ease-out;
+}
+
+/* 대화상자 - 픽셀/도트풍 (select-box-wrapper 스타일 참고) */
+.scene-chat {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(20px, 3.5vh, 36px) clamp(24px, 4.8vw, 44px);
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    gap: 0;
+    /* 반투명 다크 브라운 배경에 밝은 텍스트 */
+    color: var(--text-light);
+    background-color: var(--dialog-dark-brown);
+    border: none;
+    border-radius: 0;
+    font-weight: 400;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: clamp(24px, 3.5vh, 32px);
+    min-height: clamp(120px, 16vh, 140px);
+    animation: fadeInUp 0.8s ease-out;
+    image-rendering: pixelated;
+    flex: 1;
+
+    /* 픽셀 box-shadow 테두리 */
+    box-shadow:
+        /* 상단 */
+        0 -4px 0 0 var(--primary-dark-brown),
+        0 -8px 0 0 var(--primary-dark-brown),
+        /* 하단 */
+        0 4px 0 0 var(--primary-dark-brown),
+        0 8px 0 0 var(--primary-dark-brown),
+        /* 좌측 */
+        -4px 0 0 0 var(--primary-dark-brown),
+        -8px 0 0 0 var(--primary-dark-brown),
+        /* 우측 */
+        4px 0 0 0 var(--primary-dark-brown),
+        8px 0 0 0 var(--primary-dark-brown),
+        /* 모서리 (계단 형태) */
+        -4px -4px 0 0 var(--primary-dark-brown),
+        4px -4px 0 0 var(--primary-dark-brown),
+        -4px 4px 0 0 var(--primary-dark-brown),
+        4px 4px 0 0 var(--primary-dark-brown);
+}
+
+/* 캐릭터 이미지 - 대화창 좌측 상단에 겹쳐 배치 */
+.scene-character-image {
+    width: auto;
+    height: clamp(187px, 30vh, 300px);
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    opacity: 0;
+    transition: opacity 1s ease-out, transform 0.3s ease-in-out;
+    position: absolute;
+    left: clamp(12px, 2.4vw, 24px);
+    bottom: 100%;
+    margin-bottom: clamp(-24px, -4.5vh, -40px);
+    z-index: 12;
+}
+
+.scene-character-image.scene-character-enter {
+    opacity: 1;
+    animation: fadeInCharacter 1s ease-out;
+}
+
+.scene-character-image:hover {
+    transform: scale(1.02);
+}
+
+/* 타이핑 효과를 위한 커서 애니메이션 */
+.scene-typewriter-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: var(--primary-dark-brown);
+    margin-left: clamp(2px, 0.5vw, 4px);
+    animation: typingBlink 0.7s infinite;
+}
+
+/* 페이드인 슬라이드 다운 애니메이션 (캐릭터 이름 태그) */
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 페이드인 업 애니메이션 (대화상자) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 캐릭터 페이드인 애니메이션 */
+@keyframes fadeInCharacter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 타이핑 커서 깜박임 애니메이션 */
+@keyframes typingBlink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+/* 클릭 계속 표시 - 화살표 위아래 바운싱 */
+.scene-click-indicator {
+    position: absolute;
+    bottom: clamp(12px, 2.2vh, 16px);
+    right: clamp(12px, 2.2vw, 20px);
+    font-size: clamp(18px, 3vw, 24px);
+    opacity: 0.7;
+    animation: bounceArrow 1.2s ease-in-out infinite;
+    /* 클릭 가능하도록 변경 */
+    pointer-events: auto;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+@keyframes bounceArrow {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(clamp(-6px, -1vh, -8px));
+        opacity: 1;
+    }
+}
+
+/* ========== 선택지 메뉴 스타일 ========== */
+
+/* 선택지 컨테이너 - 화면 중앙에 세로로 배치 */
+.choice-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 2.2vw, 20px);
+    align-items: center;
+    max-width: 600px;
+    width: 90%;
+    animation: fadeInScale 0.6s ease-out;
+}
+
+/* 개별 선택지 버튼 */
+.choice-button {
+    width: 100%;
+    padding: clamp(14px, 2.2vh, 20px) clamp(18px, 3vw, 24px);
+    background: linear-gradient(135deg, var(--primary-warm-brown) 0%, var(--primary-dark-brown) 100%);
+    border: 2px solid var(--accent-gold);
+    border-radius: 12px;
+    color: var(--text-light);
+    font-size: clamp(14px, 1.8vw, 18px);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* 선택지 버튼 호버 상태 */
+.choice-button:hover {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, var(--primary-warm-brown) 100%);
+    transform: translateY(clamp(-2px, -0.4vh, -4px));
+    box-shadow: 0 12px 24px rgba(201, 169, 97, 0.4);
+    border-color: var(--text-light);
+}
+
+/* 선택지 버튼 활성 상태 */
+.choice-button:active {
+    transform: translateY(clamp(-1px, -0.2vh, -2px));
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 페이드인 스케일 애니메이션 (선택지 메뉴) */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ========== 반응형 디자인 ========== */
+/* 모든 반응형 처리는 clamp()를 통해 모바일부터 데스크톱까지 자동으로 조정됩니다 */
