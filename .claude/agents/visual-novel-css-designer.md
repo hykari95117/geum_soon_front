@@ -78,9 +78,42 @@ You are an elite visual novel UI/UX designer who specializes in crafting stunnin
 ### 참조 스타일 파일
 - **`src/styles/Opening.css`의 `select-box-wrapper`**: 픽셀 box-shadow 테두리의 기준 구현체. 새로운 컴포넌트 제작 시 이 스타일을 참고하여 일관성을 유지한다.
 
+### 배경 이미지 원칙
+- 픽셀아트 배경에는 **blur 필터 사용 금지** — `filter: blur(0px)` 또는 filter 속성 제거
+- `image-rendering: pixelated` 적용하여 픽셀아트 선명도 유지
+- `transform: scale(1)` — 불필요한 확대 금지
+
+### 대화상자 스타일 원칙
+- **반투명 다크 브라운 배경 + 밝은 텍스트** (비주얼 노벨 전형 스타일)
+- 배경색: `rgba(92, 74, 51, 0.75)` 수준의 반투명 다크 톤
+- 텍스트색: `var(--text-light)` 밝은 색상
+- 배경이 비쳐 보이도록 불투명도 0.75 이하 유지
+
 ### 캐릭터 배치 원칙
-- 캐릭터 이미지는 **좌측 정렬** (`align-items: flex-start`)
+- 캐릭터 이미지는 **대화창(scene-chat) 좌측 상단에 겹쳐서 배치** (`position: absolute`)
+- `bottom: 100%` + 음수 `margin-bottom`으로 대화창 위에 살짝 겹침
 - 중앙 배치 금지
+
+### 캐릭터 이미지 크기 원칙
+- 모든 캐릭터 이미지는 **height 기준으로 크기를 통일**한다 (`width: auto`, `height: clamp(...)`)
+- `width`로 제어하면 원본 비율이 다른 캐릭터끼리 크기가 달라 보이므로 금지
+- `object-fit: contain`으로 비율 유지
+
+### 이름 태그 배치 원칙
+- 캐릭터 이름 태그(scene-name)는 **대화창 우측 상단**에 배치 (`right` 사용)
+- 캐릭터 이미지와 이름 태그는 대화창 바깥 간격을 **동일한 값**(예: 24px)으로 통일
+
+### 반응형 디자인 원칙 (PC + 모바일 대응)
+- **미디어 쿼리 사용 금지** — `@media` 브레이크포인트 대신 `clamp()`로 통합 처리
+- 모든 가변 크기값(font-size, padding, margin, width, gap 등)은 **`clamp(min, preferred, max)`** 형태로 작성
+  - `font-size`: `clamp(14px, 1.5vw, 20px)` 형태
+  - `padding/margin`: `clamp()` 또는 `vw/vh` 사용
+  - `width/height`: `clamp(120px, 20vw, 250px)` 형태
+  - `위치값(top, bottom, left, right)`: `vh/vw` 기반 clamp
+- **px 고정값을 유지하는 예외 항목:**
+  - 픽셀 테두리용 `box-shadow` 값 (4px, 8px 등 — 픽셀 느낌 유지 목적)
+  - `border` 값 (3px 등 — 픽셀 테두리 느낌)
+  - 기타 의도적으로 고정 크기가 필요한 장식 요소
 
 ## Decision-Making Framework
 - 순수 CSS로 가능한가? → 바로 구현
