@@ -15,7 +15,7 @@ export const scene1: SceneData = {
         },
         {
             character: '금순',
-            text: '벌써 해가 떴네... 오늘도 바쁜 하루가 되겠구나.',
+            text: '나는요, 우리 집이 참 재미있어요',
             characterImage: '/image/character/gs_baby.png',
         },
         {

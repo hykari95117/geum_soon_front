@@ -133,7 +133,7 @@
 
 /* 캐릭터 이미지 - 대화창 좌측 상단에 겹쳐 배치 */
 .scene-character-image {
-    width: auto;
+    width: clamp(120px, 18vw, 200px);
     height: clamp(187px, 30vh, 300px);
     object-fit: contain;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
