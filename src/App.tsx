@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import IntroPage from './components/IntroPage'
 import Opening from './components/Opening'
-import GamePage from './components/GamePage'
-import GamePage2 from './components/GamePage2'
+import GameRouter from './components/GameRouter'
+import Credits from './components/Credits'
 
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
     <Routes>
       <Route path={'/'} element={<IntroPage/>}></Route>
       <Route path={'/opening'} element={<Opening/>}></Route>
-      <Route path={'/game'} element={<GamePage/>}></Route>
-      <Route path={'/game2'} element={<GamePage2/>}></Route>
+      <Route path={'/game'} element={<GameRouter/>}></Route>
+      <Route path={'/credits'} element={<Credits/>}></Route>
     </Routes>
   )
 }

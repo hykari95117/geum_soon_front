@@ -297,5 +297,32 @@
     }
 }
 
+/* ========== 저장 아이콘 (오른쪽 상단) ========== */
+.scene-save-icon {
+    position: absolute;
+    top: clamp(16px, 2.5vh, 32px);
+    right: clamp(16px, 2.5vw, 32px);
+    width: clamp(80px, 8vw, 60px);
+    height: clamp(80px, 8vw, 60px);
+    cursor: pointer;
+    z-index: 5;
+    /* 픽셀아트 선명도 유지 */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    /* 호버 효과 */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 저장 아이콘 호버 상태 - 살짝 확대 */
+.scene-save-icon:hover {
+    transform: scale(1.1);
+}
+
+/* 저장 아이콘 활성 상태 - 살짝 축소 */
+.scene-save-icon:active {
+    transform: scale(0.95);
+}
+
 /* ========== 반응형 디자인 ========== */
 /* 모든 반응형 처리는 clamp()를 통해 모바일부터 데스크톱까지 자동으로 조정됩니다 */

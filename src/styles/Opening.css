@@ -48,7 +48,14 @@
   padding-top: 5%;
 }
 
-/* 메뉴 버튼 감싸는 하얀색 픽셀 테두리 */
+/* 메뉴 버튼 감싸는 컨테이너 (기본 상태는 테두리 없음) */
+.select-box-container {
+  border: none;
+  padding: 5px;
+  image-rendering: pixelated;
+}
+
+/* 메뉴 버튼 감싸는 하얀색 픽셀 테두리 (키보드 선택 또는 마우스 hover) */
 .select-box-wrapper {
   border: none;
   padding: 5px;
@@ -92,8 +99,7 @@
   cursor: default;
 }
 
-/* 메뉴 버튼 hover / 키보드 선택 (배경 검정, 글씨 흰색) */
-.select-box:hover,
+/* 메뉴 버튼 키보드 선택 또는 마우스 hover (selectedIndex 기반) */
 .select-box.selected {
   background-color: #80d715;
   border: none;
@@ -101,7 +107,6 @@
 }
 
 /* 메뉴 버튼 클릭 / 키보드 Enter (눌림 효과) */
-.select-box:active,
 .select-box.pressed {
   box-shadow: 2px 2px 0px #000000;
   transform: translate(2px, 2px);

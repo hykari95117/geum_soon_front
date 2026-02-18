@@ -1,62 +1,36 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import PlaySong from './PlaySong'
 import '../styles/GamePage.css'
+import useSoundEffect from '../hooks/useSoundEffect'
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-interface DialogueLine {
+export interface DialogueLine {
     character?: string
     text: string
     characterImage?: string
 }
 
-// ---------------------------------------------------------------------------
-// Dialogue Data
-// ---------------------------------------------------------------------------
-
-const DIALOGUE_DATA: DialogueLine[] = [
-    {
-        text: '어느 이른 아침, 초가집 안에 따스한 햇살이 스며든다.',
-    },
-    {
-        character: '금순',
-        text: '벌써 해가 떴네... 오늘도 바쁜 하루가 되겠구나.',
-        characterImage: '/image/character/char1.webp',
-    },
-    {
-        text: '금순이는 자리에서 일어나 방 안을 둘러보았다.',
-    },
-    {
-        character: '금순',
-        text: '어머니가 두고 가신 편지가 여기 있었지... 분명 어딘가에 놓아뒀는데.',
-        characterImage: '/image/character/char1.webp',
-    },
-    {
-        character: '금순',
-        text: '오늘은 장에 나가서 쌀도 사고, 약초도 구해야 해.',
-        characterImage: '/image/character/char1.webp',
-    },
-    {
-        text: '금순이는 삿갓을 고쳐 쓰고 밖으로 나설 채비를 하기 시작했다.',
-    },
-]
+interface GameSceneProps {
+    dialogues: DialogueLine[]
+    backgroundUrl: string
+    bgm: string
+    onComplete: () => void
+}
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const BACKGROUND_URL = '/image/background/scene1/home.png'
 const TYPEWRITER_SPEED_MS = 45
 
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
 
-const GamePage = () => {
-    const navigate = useNavigate()
+const GameScene = ({ dialogues, backgroundUrl, bgm, onComplete }: GameSceneProps) => {
     const [dialogueIndex, setDialogueIndex] = useState(0)
     const [displayedText, setDisplayedText] = useState('')
     const [isTyping, setIsTyping] = useState(false)
@@ -65,7 +39,7 @@ const GamePage = () => {
 
     const typewriterRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-    const currentLine = DIALOGUE_DATA[dialogueIndex]
+    const currentLine = dialogues[dialogueIndex]
 
     // -- Typewriter Effect ---------------------------------------------------
     const startTypewriter = useCallback((text: string) => {
@@ -112,13 +86,13 @@ const GamePage = () => {
         }
 
         const nextIndex = dialogueIndex + 1
-        if (nextIndex >= DIALOGUE_DATA.length) {
+        if (nextIndex >= dialogues.length) {
             setHasFinishedAll(true)
             return
         }
 
         setDialogueIndex(nextIndex)
-    }, [dialogueIndex, isTyping, hasFinishedAll, completeTypewriter])
+    }, [dialogueIndex, dialogues.length, isTyping, hasFinishedAll, completeTypewriter])
 
     // -- Keyboard Support ----------------------------------------------------
     useEffect(() => {
@@ -134,7 +108,7 @@ const GamePage = () => {
 
     // -- Start typewriter on dialogue change ---------------------------------
     useEffect(() => {
-        const line = DIALOGUE_DATA[dialogueIndex]
+        const line = dialogues[dialogueIndex]
         startTypewriter(line.text)
 
         if (line.characterImage) {
@@ -155,21 +129,38 @@ const GamePage = () => {
     // -- Determine current character image -----------------------------------
     const visibleCharacterImage = (() => {
         for (let i = dialogueIndex; i >= 0; i--) {
-            if (DIALOGUE_DATA[i].characterImage) {
-                return DIALOGUE_DATA[i].characterImage
+            if (dialogues[i].characterImage) {
+                return dialogues[i].characterImage
             }
         }
         return undefined
     })()
 
+    // -- Sound --------------------------------------------------------------
+    const playHoverSound = useSoundEffect('/music/effect/save.wav');
+    const clickSave = () => {
+        console.log(`saved`)
+        playHoverSound();
+    }
+
     // -- Render --------------------------------------------------------------
     return (
         <div className="scene-container" onClick={advanceDialogue}>
-            <PlaySong src="/music/bgm/in_office.mp3" loop={true} fadeIn={5000} />
+            <PlaySong src={bgm} loop={true} fadeIn={5000} />
+
+            <img
+                src="/image/img_assets/save.png"
+                alt="저장"
+                className="scene-save-icon"
+                onClick={(e) => {
+                    e.stopPropagation()
+                    clickSave()
+                }}
+            />
 
             <div
                 className="scene-background"
-                style={{ backgroundImage: `url(${BACKGROUND_URL})` }}
+                style={{ backgroundImage: `url(${backgroundUrl})` }}
             />
 
             <div className="scene-content-wrapper">
@@ -203,7 +194,7 @@ const GamePage = () => {
                                 className="scene-click-indicator"
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    navigate('/game2')
+                                    onComplete()
                                 }}
                             >
                                 계속하기
@@ -216,4 +207,4 @@ const GamePage = () => {
     )
 }
 
-export default GamePage
+export default GameScene

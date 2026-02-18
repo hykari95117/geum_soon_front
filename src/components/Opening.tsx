@@ -2,7 +2,7 @@ import '../styles/Opening.css'
 import PlaySong from './PlaySong'
 import useSoundEffect from '../hooks/useSoundEffect'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const Opening = () => {
     const playHoverSound = useSoundEffect('/music/effect/hover.flac');
@@ -12,11 +12,13 @@ const Opening = () => {
     const [pressedIndex, setPressedIndex] = useState<number>(-1);
     const navigate = useNavigate();
 
-    const handleSelect = (index: number) => {
+    const handleSelect = useCallback((_index: number) => {
         playClickSound();
-        navigate('/game');
-        // console.log(`${buttonTextArr[index]} 선택됨`);
-    }
+        // playClickSound와 navigate 동시 발생 시 navigate가 작동을 하지않으므로 setTimeout 적용
+        setTimeout(() => {
+            navigate('/game');
+        }, 100);
+    }, [playClickSound, navigate]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -47,7 +49,7 @@ const Opening = () => {
         }
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedIndex]);
+    }, [selectedIndex, playHoverSound, handleSelect]);
     
 
     return (
@@ -58,11 +60,14 @@ const Opening = () => {
                 {
                     buttonTextArr.map((text, index) => {
                         return (
-                            <div key={index} className={selectedIndex === index ? "select-box-wrapper" : undefined}>
+                            <div key={index} className={`select-box-container${selectedIndex === index ? ' select-box-wrapper' : ''}`}>
                                 <button
                                     className={`select-box${selectedIndex === index ? ' selected' : ''}${pressedIndex === index ? ' pressed' : ''}`}
                                     onClick={() => handleSelect(index)}
-                                    onMouseEnter={playHoverSound}
+                                    onMouseEnter={() => {
+                                        playHoverSound();
+                                        setSeletedIndex(index);
+                                    }}
                                 >{text}</button>
                             </div>
                         )
