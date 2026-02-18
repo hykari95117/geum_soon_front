@@ -12,11 +12,20 @@ const Opening = () => {
     const [pressedIndex, setPressedIndex] = useState<number>(-1);
     const navigate = useNavigate();
 
-    const handleSelect = useCallback((_index: number) => {
+    const handleSelect = useCallback((index: number) => {
         playClickSound();
-        // playClickSound와 navigate 동시 발생 시 navigate가 작동을 하지않으므로 setTimeout 적용
         setTimeout(() => {
-            navigate('/game');
+            switch (index) {
+                case 0: // START
+                    navigate('/game');
+                    break;
+                case 1: // SAVED
+                    // TODO: 저장 데이터 로드 기능
+                    break;
+                case 2: // EXIT
+                    window.close();
+                    break;
+            }
         }, 100);
     }, [playClickSound, navigate]);
 
