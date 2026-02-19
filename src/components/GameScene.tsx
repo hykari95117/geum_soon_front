@@ -104,15 +104,21 @@ const GameScene = ({ dialogues, backgroundUrl, bgm, onComplete }: GameSceneProps
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                advanceDialogue()
+                e.stopPropagation()
+                if (hasFinishedAll) {
+                    onComplete()
+                } else {
+                    advanceDialogue()
+                }
             }
         }
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [advanceDialogue])
+    }, [advanceDialogue, hasFinishedAll, onComplete])
 
     // -- Start typewriter on dialogue change ---------------------------------
     useEffect(() => {
+        console.log(`Start typewriter on dialogue change`)
         const line = dialogues[dialogueIndex]
         startTypewriter(line.text)
 
