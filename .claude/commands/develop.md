@@ -8,6 +8,7 @@
 | `game-dev-implementer` | 실제 코드 구현, 기능 개발, 버그 수정이 필요할 때 |
 | `visual-novel-css-designer` | UI 디자인, CSS 스타일링, 애니메이션, 레이아웃 작업이 필요할 때 |
 | `todo-writer` | 남은 작업 정리, TODO 목록 업데이트, 다음 단계 파악이 필요할 때 |
+| `frontend-code-refactor` | 코드 중복 제거, 컴포넌트 분리, 타입 정리, 폴더 구조 개선 등 리팩터링이 필요할 때 |
 
 ## 에이전트 선택 기준
 
@@ -15,6 +16,7 @@
 - **"구현해줘", "만들어줘", "코드 짜줘", "기능 추가"** → `game-dev-implementer`
 - **"스타일", "CSS", "디자인", "UI", "애니메이션", "꾸며줘"** → `visual-novel-css-designer`
 - **"TODO", "남은 작업", "할 일 정리", "다음에 뭐 해야 해"** → `todo-writer`
+- **"리팩터링", "코드 정리", "중복 제거", "구조 개선", "분리해줘"** → `frontend-code-refactor`
 - **요청이 모호하거나 기획+구현 모두 필요한 경우** → `game-dev-planner` 먼저 실행 후 `game-dev-implementer` 순서로 실행
 
 ## 실행 방법
